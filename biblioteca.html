@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styleslibros.css">
+</head>
+<header>
+    <nav>
+        <a href="webreto1.html"><img id="logo" src="logo-removebg-preview.png" alt=""></a>
+        <a href="webreto1.html"><img id="nombre" src="Captura_de_pantalla_2023-11-06_094200-removebg-preview.png" alt=""></a>
+        <ul>
+            <li><a href="">NOSOTROS</a></li>
+            <li><a href="productosand.html">PRODUCTOS</a></li>
+            <li><a href="Sobre Nosotros.html">INFORMACIÓN</a></li>
+            <li><a href="Juegos.html">JUEGOS</a></li>
+            <li><a href="http://localhost/.vscode/libreria.php">BUSCAR</a></li>
+        </ul>
+    </nav>
+</header>
+<body>
+<section>
+    <h1 class="infantil">INFANTIL</h1>
+    <div class="libros-infantiles">
+        <div class="libro-1">
+            <h4>El principito</h4>                
+            <img src="El_principito.jpg" alt="" style="width:245px;00px;height:300px;">
+            <h4>10,00 €</h4>
+            <button class="add-to-cart-btn" onclick="agregarAlCarrito('El principito', 10)">AÑADIR AL CARRITO</button>
+        </div>
+        <div class="libro-2">
+            <h4>El diario de Greg</h4>                
+            <img src="el-diario-de-greg.jpg" alt="" style="width:245px;00px;height:300px;">
+            <h4>10,00 €</h4>
+            <button class="add-to-cart-btn" onclick="agregarAlCarrito('El diario de Greg', 10)">AÑADIR AL CARRITO</button>
+        </div>
+        <div class="libro-3">
+            <h4>Dumbo</h4>                
+            <img src="imagen-dumbo.jpg" alt="" style="width:235px;00px;height:300px;">
+            <h4>13,00 €</h4>
+            <button class="add-to-cart-btn" onclick="agregarAlCarrito('Dumbo', 13)">AÑADIR AL CARRITO</button>
+        </div>
+    </div>
+    <h1 class="juvenil">FANTASÍA JUVENIL</h1>
+    <div class="libros-juveniles">
+        <div class="libro-1">
+            <h4>FNAF Los ojos de plata</h4>                
+            <img src="fnaf.jpg" alt="" style="width:245px;00px;height:300px;">
+            <h4>18,00 €</h4>
+            <button class="add-to-cart-btn" onclick="agregarAlCarrito('FNAF', 18)">AÑADIR AL CARRITO</button>
+            
+        </div>
+        <div class="libro-2">
+            <h4>Amanda Black</h4>                
+            <img src="amanda.jpg" alt="" style="width:245px;00px;height:300px;">
+            <h4>14,50 €</h4>
+            <button class="add-to-cart-btn" onclick="agregarAlCarrito('Amanda Black', 14.50)">AÑADIR AL CARRIRO</button>
+        </div>
+        <div class="libro-3">
+            <h4>El Bestiario de Axlin</h4>                
+            <img src="bestiario.jpg" alt="" style="width:235px;00px;height:300px;">
+            <h4>13,00 €</h4>
+            <button class="add-to-cart-btn" onclick="agregarAlCarrito('El Bestiario de Axlin', 13)">AÑADIR AL CARRITO</button>
+        </div>
+    </div>
+    <h1 class="mangas">MANGAS</h1>
+    <div class="libros-novelas">
+        <div class="libro-1">
+            <h4>One Piece</h4>                
+            <img src="one-piece-vol-1.jpg" alt="" style="width:245px;00px;height:300px;">
+            <h4>8,00 €</h4>
+            <button class="add-to-cart-btn" onclick="agregarAlCarrito('One Piece', 8)">AÑADIR AL CARRITO</button>
+            
+        </div>
+        <div class="libro-2">
+            <h4>Blue Lock</h4>                
+            <img src="blue lock.jpg" alt="" style="width:245px;00px;height:300px;">
+            <h4>6,00 €</h4>
+            <button class="add-to-cart-btn" onclick="agregarAlCarrito('Blue Lock', 6)">AÑADIR AL CARRITO</button>
+        </div>
+        <div class="libro-3">
+            <h4>Berserk</h4>                
+            <img src="berserk.jpg" alt="" style="width:235px;00px;height:300px;">
+            <h4>15,50 €</h4>
+            <button class="add-to-cart-btn" onclick="agregarAlCarrito('Berserk', 15.50)">AÑADIR AL CARRITO</button>
+        </div>
+    </div>
+    <h1 class="terror">TERROR</h1>
+    <div class="libros-biograficas">
+        <div class="libro-1">
+            <h4>El Baile de los Muertos</h4>                
+            <img src="baile muertos.jpg" alt="" style="width:245px;00px;height:300px;">
+            <h4>20,00 €</h4>
+            <button class="add-to-cart-btn" onclick="agregarAlCarrito('El Baile de los Muertos', 20)">AÑADIR AL CARRITO</button>
+            
+        </div>
+        <div class="libro-2">
+            <h4>El Resplandor</h4>                
+            <img src="resplandor.jpg" alt="" style="width:245px;00px;height:300px;">
+            <h4>16,00 €</h4>
+            <button class="add-to-cart-btn" onclick="agregarAlCarrito('El Resplandor', 16)">AÑADIR AL CARRITO</button>
+        </div>
+        <div class="libro-3">
+            <h4>El Psicoanalista</h4>                
+            <img src="psico.jpg" alt="" style="width:235px;00px;height:300px;">
+            <h4>17,50 €</h4>
+            <button class="add-to-cart-btn" onclick="agregarAlCarrito('El Psicoanalista', 17.50)">AÑADIR AL CARRITO</button>
+        </div>
+    </div>
+    <script>
+         function pagar() {
+        alert('Compra realizada con éxito.');
+        vaciarCarrito();
+    }
+        function agregarAlCarrito() {
+          alert('Producto añadido al carrito');
+        }
+      </script>
+    </div>
+</section>
+
+<div class="carrito" id="carrito">
+    <div class="header-carrito">
+        <h2>Tu carrito</h2>
+        <button onclick="vaciarCarrito()">Vaciar carrito</button>
+    </div>
+
+    <div class="carrito-items" id="carrito-items">
+
+    </div>
+
+    <div class="carrito-total">
+        <div class="fila">
+            <strong>Tu Total</strong>
+            <span id="carrito-total">0,00 €</span>
+        </div>
+        <button class="btn-pagar" onclick="pagar()">Pagar <i class="fa-solid fa-bag-shopping"></i></button>
+    </div>
+</div>
+
+<script>
+    let carrito = [];
+
+    function agregarAlCarrito(producto, precio) {
+        alert('Producto añadido al carrito');
+        carrito.push({ producto, precio });
+        mostrarCarrito();
+    }
+
+    function mostrarCarrito() {
+        const carritoContainer = document.getElementById('carrito-items');
+        const carritoTotal = document.getElementById('carrito-total');
+
+        carritoContainer.innerHTML = '';
+        let total = 0;
+
+        carrito.forEach(item => {
+            const itemDiv = document.createElement('div');
+            itemDiv.innerHTML = `
+                <div class="carrito-item">
+                    <span>${item.producto}</span>
+                    <span>${item.precio} €</span>
+                    <button onclick="eliminarDelCarrito('${item.producto}')">Eliminar</button>
+                </div>
+            `;
+            carritoContainer.appendChild(itemDiv);
+            total += item.precio;
+        });
+
+        carritoTotal.textContent = total.toFixed(2) + ' €';
+    }
+
+    function eliminarDelCarrito(producto) {
+        carrito = carrito.filter(item => item.producto !== producto);
+        mostrarCarrito();
+    }
+
+    function vaciarCarrito() {
+        carrito = [];
+        mostrarCarrito();
+    }
+</script>
+
+</body>
+<footer>
+    <h1><b>CONTÁCTANOS</b></h1>
+    <ul>
+        <li><a href=""> <img id="logotw" src="twit.jpg" alt="">  <b>TWITTER</b></a></li>
+        <br>
+        <li><a href=""> <img id="logofb" src="fcg.jpg" alt=""> <b>FACEBOOK</b></a></li>
+        <br>
+        <li><a href=""> <img id="logoig" src="inst.jpg" alt="">  <b>  INSTAGRAM</b></a></li>
+        <br>
+        <li><a href=""> <img id="logotl" src="tlf.jpg" alt=""> <b>TELÉFONO</b></a></li>
+    </ul>
+</footer>
+</html>

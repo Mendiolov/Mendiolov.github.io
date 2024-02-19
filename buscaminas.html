@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <style>
+        .container {
+  width: 500px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+body{
+    background-color: rgb(224, 224, 153);
+}
+
+.grid {
+  height: 400px;
+  width: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #dcd6bc;
+  margin-left: 50px;
+  margin-top: 20px;
+  border: 10px solid #dcd6bc;
+  margin-bottom: 10px;
+}
+
+div {
+  font-size: 25px;
+  text-align: center;
+  font-family: 'Roboto Mono', monospace;
+
+}
+.valido {
+  height: 40px;
+  width: 40px;
+  border: 5px solid;
+  border-color: #f5f3eb #bab7a9 #bab7a9 #fff9db;
+  box-sizing: border-box;
+}
+
+.revisado {
+  height: 40px;
+  width: 40px;
+  border: 2px solid;
+  background-color: #cecab7;
+  border-color: #9c998d;
+  box-sizing: border-box;
+}
+
+.bomba {
+  height: 40px;
+  width: 40px;
+  border: 5px solid;
+  border-color: #f5f3eb #bab7a9 #bab7a9 #fff9db;
+  box-sizing: border-box;
+}
+
+.uno {
+  color: #e76346;
+}
+
+.dos {
+  color: #4199d3;
+}
+
+.tres {
+  color: #57da59;
+}
+
+.cuatro{
+  color: #bb41d3;
+}
+
+#resultado {
+  margin-top: 5px;
+  color: #e76346;
+}
+
+    </style>
+</head>
+<body>
+    <div id="flags-left"></div>
+    <div class="grid"></div>
+    <div id="result"></div>
+    <button id="ayuda">Marcar bomba aleatoria</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.querySelector('.grid')
+            const flagsRestantes = document.querySelector('#flags-left')
+            const resultado = document.querySelector('#result')
+            let ancho = 10
+            let cantidadBombas = 20
+            let banderas = 0
+            let casillas = []
+            let juegoTerminado = false
+
+            function crearTablero() {
+                flagsRestantes.innerHTML = cantidadBombas
+
+                const arrayBombas = Array(cantidadBombas).fill('bomba')
+                const arrayVacios = Array(ancho * ancho - cantidadBombas).fill('valido')
+                const arrayJuego = arrayVacios.concat(arrayBombas)
+                const arrayMezclado = arrayJuego.sort(() => Math.random() - 0.5)
+
+                for (let i = 0; i < ancho * ancho; i++) {
+                    const casilla = document.createElement('div')
+                    casilla.setAttribute('id', i)
+                    casilla.classList.add(arrayMezclado[i])
+                    grid.appendChild(casilla)
+                    casillas.push(casilla)
+
+                    casilla.addEventListener('click', function (e) {
+                        clic(casilla)
+                    })
+
+                    casilla.oncontextmenu = function (e) {
+                        e.preventDefault()
+                        agregarBandera(casilla)
+                    }
+                }
+
+                for (let i = 0; i < casillas.length; i++) {
+                    let total = 0
+                    const esBordeIzquierdo = (i % ancho === 0)
+                    const esBordeDerecho = (i % ancho === ancho - 1)
+
+                    if (casillas[i].classList.contains('valido')) {
+                        if (i > 0 && !esBordeIzquierdo && casillas[i - 1].classList.contains('bomba')) total++
+                        if (i > 9 && !esBordeDerecho && casillas[i + 1 - ancho].classList.contains('bomba')) total++
+                        if (i > 10 && casillas[i - ancho].classList.contains('bomba')) total++
+                        if (i > 11 && !esBordeIzquierdo && casillas[i - 1 - ancho].classList.contains('bomba')) total++
+                        if (i < 98 && !esBordeDerecho && casillas[i + 1].classList.contains('bomba')) total++
+                        if (i < 90 && !esBordeIzquierdo && casillas[i - 1 + ancho].classList.contains('bomba')) total++
+                        if (i < 88 && !esBordeDerecho && casillas[i + 1 + ancho].classList.contains('bomba')) total++
+                        if (i < 89 && casillas[i + ancho].classList.contains('bomba')) total++
+                        casillas[i].setAttribute('data', total)
+                    }
+                }
+            }
+
+            crearTablero()
+
+            function agregarBandera(casilla) {
+                if (juegoTerminado) return
+                if (!casilla.classList.contains('revisado') && (banderas < cantidadBombas)) {
+                    if (!casilla.classList.contains('bandera')) {
+                        casilla.classList.add('bandera')
+                        casilla.innerHTML = ' 🚩'
+                        banderas++
+                        flagsRestantes.innerHTML = cantidadBombas - banderas
+                        verificarGanador()
+                    } else {
+                        casilla.classList.remove('bandera')
+                        casilla.innerHTML = ''
+                        banderas--
+                        flagsRestantes.innerHTML = cantidadBombas - banderas
+                    }
+                }
+            }
+
+            function clic(casilla) {
+                let idActual = casilla.id
+                if (juegoTerminado) return
+                if (casilla.classList.contains('revisado') || casilla.classList.contains('bandera')) return
+                if (casilla.classList.contains('bomba')) {
+                    juegoPerdido(casilla)
+                } else {
+                    let total = casilla.getAttribute('data')
+                    if (total != 0) {
+                        casilla.classList.add('revisado')
+                        if (total == 1) casilla.classList.add('uno')
+                        if (total == 2) casilla.classList.add('dos')
+                        if (total == 3) casilla.classList.add('tres')
+                        if (total == 4) casilla.classList.add('cuatro')
+                        casilla.innerHTML = total
+                        return
+                    }
+                    revisarCasilla(casilla, idActual)
+                }
+                casilla.classList.add('revisado')
+            }
+
+            function revisarCasilla(casilla, idActual) {
+                const esBordeIzquierdo = (idActual % ancho === 0)
+                const esBordeDerecho = (idActual % ancho === ancho - 1)
+
+                setTimeout(() => {
+                    if (idActual > 0 && !esBordeIzquierdo) {
+                        const nuevoId = casillas[parseInt(idActual) - 1].id
+                        const nuevaCasilla = document.getElementById(nuevoId)
+                        clic(nuevaCasilla)
+                    }
+                    if (idActual > 9 && !esBordeDerecho) {
+                        const nuevoId = casillas[parseInt(idActual) + 1 - ancho].id
+                        const nuevaCasilla = document.getElementById(nuevoId)
+                        clic(nuevaCasilla)
+                    }
+                    if (idActual > 10) {
+                        const nuevoId = casillas[parseInt(idActual - ancho)].id
+                        const nuevaCasilla = document.getElementById(nuevoId)
+                        clic(nuevaCasilla)
+                    }
+                    if (idActual > 11 && !esBordeIzquierdo) {
+                        const nuevoId = casillas[parseInt(idActual) - 1 - ancho].id
+                        const nuevaCasilla = document.getElementById(nuevoId)
+                        clic(nuevaCasilla)
+                    }
+                    if (idActual < 98 && !esBordeDerecho) {
+                        const nuevoId = casillas[parseInt(idActual) + 1].id
+                        const nuevaCasilla = document.getElementById(nuevoId)
+                        clic(nuevaCasilla)
+                    }
+                    if (idActual < 90 && !esBordeIzquierdo) {
+                        const nuevoId = casillas[parseInt(idActual) - 1 + ancho].id
+                        const nuevaCasilla = document.getElementById(nuevoId)
+                        clic(nuevaCasilla)
+                    }
+                    if (idActual < 88 && !esBordeDerecho) {
+                        const nuevoId = casillas[parseInt(idActual) + 1 + ancho].id
+                        const nuevaCasilla = document.getElementById(nuevoId)
+                        clic(nuevaCasilla)
+                    }
+                    if (idActual < 89) {
+                        const nuevoId = casillas[parseInt(idActual) + ancho].id
+                        const nuevaCasilla = document.getElementById(nuevoId)
+                        clic(nuevaCasilla)
+                    }
+                }, 10)
+            }
+
+            function juegoPerdido(casilla) {
+                resultado.innerHTML = '¡BOOM! Juego terminado.'
+                juegoTerminado = true
+
+                casillas.forEach(casilla => {
+                    if (casilla.classList.contains('bomba')) {
+                        casilla.innerHTML = '💣'
+                        casilla.classList.remove('bomba')
+                        casilla.classList.add('revisado')
+                    }
+                })
+            }
+
+            function verificarGanador() {
+                let coincidencias = 0
+
+                for (let i = 0; i < casillas.length; i++) {
+                    if (casillas[i].classList.contains('bandera') && casillas[i].classList.contains('bomba')) {
+                        coincidencias++
+                    }
+                    if (coincidencias === cantidadBombas) {
+                        resultado.innerHTML = '¡Ganaste!'
+                        juegoTerminado = true
+                    }
+                }
+            }
+            function marcarBombaAleatoria() {
+    // Obtener las casillas que contienen bombas y aún no han sido marcadas como bandera
+    const casillasBomba = casillas.filter(casilla => casilla.classList.contains('bomba') && !casilla.classList.contains('bandera') && !casilla.classList.contains('revisado'));
+
+    if (casillasBomba.length === 0) {
+        alert('No quedan casillas con bomba por marcar.');
+        return;
+    }
+
+    // Obtener una casilla aleatoria entre las casillas que contienen bomba
+    const casillaBombaAleatoria = casillasBomba[Math.floor(Math.random() * casillasBomba.length)];
+
+    // Marcar la casilla aleatoria como bandera
+    casillaBombaAleatoria.classList.add('bandera');
+    casillaBombaAleatoria.innerHTML = ' 🚩';
+
+    // Incrementar el contador de banderas
+    banderas++;
+
+    // Actualizar la cantidad de banderas restantes
+    flagsRestantes.innerHTML = cantidadBombas - banderas;
+
+    // Verificar si se ha ganado el juego
+    verificarGanador();
+}
+document.getElementById('ayuda').addEventListener('click', marcarBombaAleatoria);
+        })
+        
+    </script>
+</body>
+</html>
